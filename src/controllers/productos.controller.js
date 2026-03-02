@@ -1,35 +1,52 @@
-//Controlador solo sabe recibir y consula la base de datos
-const {getConexion,sql} = require('../database');
+//Controlador solo sabe recibir y consulta la base de datos
+const productosService = require('../services/productos.service');
 
-const getProducto =  async (req,res)=>{
-    try {
-        const pool = await getConexion();
-        const result = await pool.request().query('SELECT * FROM Productos');
-        res.json(result.recordset);
-    } catch (error) {
-        res.status(500).send(error.message);
+const obtenerProductos = async(req,res,next)=>{
+    try{
+      const productos = await productosService.obtenerTodos();
+      res.json(productos);
+    }catch(error){
+        next(error);
     }
 }
 
-const crearProducto = async (req, res) => {
-    const { Nombre, Precio, Stock } = req.body;
+const registrarProducto = async (req, res, next) => {
     try {
-        const pool = await getConexion();
-        await pool.request()
-            .input('Nombre', sql.VarChar, Nombre)
-            .input('Descripcion', sql.VarChar, req.body.Descripcion || '')
-            .input('Precio', sql.Decimal(10, 2), Precio)
-            .input('Stock', sql.Int, Stock)
-            .query('INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES (@Nombre, @Descripcion, @Precio, @Stock)');
-
+        await productosService.registrar(req.body);
         res.status(201).json({ mensaje: "Producto guardado con éxito" });
     } catch (error) {
-        res.status(500).send(error.message);
+        next(error);
     }
 };
 
-//Exportamos
-module.exports = {
-    getProducto,
-    crearProducto
+const eliminarProducto = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const rowsAffected = await productosService.eliminar(id);
+
+        if (rowsAffected === 0) {
+            return res.status(404).json({ error: { mensaje: "No se encontró el producto elegido" } });
+        }
+        res.json({ mensaje: "Producto eliminado con éxito" });
+    } catch (error) {
+        next(error);
+    }
 }
+
+module.exports ={
+    obtenerProductos,
+    registrarProducto,
+    eliminarProducto
+}
+
+
+
+
+
+
+
+
+
+
+

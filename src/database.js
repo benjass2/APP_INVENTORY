@@ -1,26 +1,27 @@
 const sql = require('mssql');
+require('dotenv').config();//Carga las variables del archivo .env
 
-const dbConfig ={
-    user: 'bodega_user', // El usuario que creamos en SSMS
-    password: 'google321gmail', // La contraseña que le pusiste
-    server: 'localhost', 
-    database: 'BodegaDB',
+const dbConfig = {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,
+    database: process.env.DB_DATABASE,
     options: {
-        encrypt: false, // Ponlo en false si es local
-        trustServerCertificate: true // Necesario para conexiones locales
+        encrypt: false, 
+        trustServerCertificate: true 
     }
 }
 
-async function getConexion(){
-    try{
-      const pool = await sql.connect(dbConfig);
-      return pool;
-    }catch(error){
-        console.log("ERROR DE CONEXION A SQL SERVER,:" , error);
+async function conectarDB() {
+    try {
+        const pool = await sql.connect(dbConfig);
+        return pool;
+    } catch (error) {
+        console.log("ERROR DE CONEXION A SQL SERVER,:", error);
     }
 }
 
 module.exports = {
     sql,
-    getConexion
+    conectarDB
 }

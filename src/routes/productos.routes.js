@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const productosCtrl = require('../controllers/productos.controller')
+const productosController = require('../controllers/productos.controller');
+const validarId = require('../middleware/validarID');
 
-//Definimos los endpoint
-router.get('/productos', productosCtrl.getProducto);
-router.post('/productos', productosCtrl.crearProducto);
+router.get('/', productosController.obtenerProductos);
+router.post('/', productosController.registrarProducto);
+router.delete('/:id',validarId,productosController.eliminarProducto);
 
 module.exports = router;
+
