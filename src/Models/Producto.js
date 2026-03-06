@@ -19,7 +19,7 @@ const Producto ={
             .input('Precio', sql.Decimal(10, 2), Precio)
             .input('Stock', sql.Int, Stock)
             .query('INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES (@Nombre, @Descripcion, @Precio, @Stock)');
-        return { mensaje: "Producto guardado con éxito" };
+        return true;
     },
     
     // Eliminar por ID

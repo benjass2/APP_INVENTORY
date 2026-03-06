@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory</title>
+    <title>Gestión de Inventario - Bodega</title>
     <link rel="icon" type="image/png" href="/img/clank.png" />
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/componentes.css">
@@ -12,69 +12,95 @@
 </head>
 
 <body>
-    <header>
-        <h1>Gestión de Inventario - Bodega</h1>
-        <!-- <nav class="main-nav">
-            <button onclick="router('inventario')">Inventario</button>
-            <button onclick="router('registrar')">Nuevo Producto</button>
-            <button onclick="router('carrito')">Carrito de Ventas</button>
-        </nav> -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="header-title">Gestión de Inventario</h1>
+            <nav class="main-nav">
+                <button class="nav-btn active" onclick="router('inventario')">Inventario</button>
+                <button class="nav-btn" onclick="router('registrar')">Nuevo Producto</button>
+                <button class="nav-btn" onclick="router('carrito')">Carrito de Ventas</button>
+            </nav>
+        </div>
     </header>
 
-    <main class="container">
-        <section class="card">
-            <h2>Registrar Nuevo Producto</h2>
-            <form id="form-producto">
-                <div class="input-group">
-                    <label for="nombre">Nombre del Producto</label>
-                    <input type="text" id="nombre" placeholder="Ej. Arroz Costeño" required>
-                </div>
+    <main class="main-container">
+        <div class="content-grid">
+            <!-- Panel lateral -->
+            <aside class="sidebar">
+                <section class="search-section card">
+                    <h3>Buscar Producto</h3>
+                    <div class="search-input">
+                        <input type="text" id="buscar-producto" placeholder="Escribe el nombre del producto" class="search-field">
+                    </div>
+                </section>
 
-                <div class="input-group">
-                    <label for="descripcion">Descripción</label>
-                    <textarea id="descripcion" placeholder="Descripción del producto" required></textarea>
-                </div>
-                <div class="input-group">
-                    <label for="precio">Precio (S/)</label>
-                    <input type="number" id="precio" step="0.1" placeholder="0.00" required>
-                </div>
-                <div class="input-group">
-                    <label for="stock">Stock Inicial</label>
-                    <input type="number" id="stock" placeholder="Cantidad" required>
-                </div>
-                <button type="submit" class="btn-save">Guardar en Base de Datos</button>
-            </form>
-        </section>
+                <section class="form-section card">
+                    <h3>Registrar Nuevo Producto</h3>
+                    <form id="form-producto" class="product-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre del Producto</label>
+                            <input type="text" id="nombre" placeholder="Ej. Arroz Costeño" required>
+                        </div>
 
-        <section class="card">
-            <h2>Productos en Almacén</h2>
-            <div class="table-container">
-                <table id="tabla-productos">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Producto</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea id="descripcion" placeholder="Descripción del producto" rows="3" required></textarea>
+                        </div>
 
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="precio">Precio (S/)</label>
+                                <input type="number" id="precio" step="0.01" placeholder="0.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="stock">Stock Inicial</label>
+                                <input type="number" id="stock" placeholder="Cantidad" required>
+                            </div>
+                        </div>
 
+                        <button type="submit" class="btn btn-primary btn-full">Guardar Producto</button>
+                    </form>
+                </section>
+            </aside>
+
+            <!-- Contenido principal -->
+            <section class="main-content">
+                <div class="products-section card">
+                    <div class="section-header">
+                        <h2>Productos en Almacén</h2>
+                        <div class="section-actions">
+                            <span class="product-count" id="product-count">0 productos</span>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="tabla-productos" class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Producto</th>
+                                    <th>Descripción</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Gestión de Inventario - Bodega. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
     <script type="module" src="/js/main.js"></script>
-
-
-
-
-
 </body>
 
 </html>
