@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/componentes.css">
     <link rel="stylesheet" href="./css/tablas.css">
+    <link rel="stylesheet" href="./css/carrito.css">
 </head>
 
 <body>
@@ -18,7 +19,11 @@
             <nav class="main-nav">
                 <button class="nav-btn active" onclick="router('inventario')">Inventario</button>
                 <button class="nav-btn" onclick="router('registrar')">Nuevo Producto</button>
-                <button class="nav-btn" onclick="router('carrito')">Carrito de Ventas</button>
+                <!-- Botón carrito con badge -->
+                <button class="nav-btn nav-btn-carrito" onclick="toggleCarrito()">
+                    🛒 Carrito
+                    <span id="carrito-badge">0</span>
+                </button>
             </nav>
         </div>
     </header>
@@ -93,6 +98,32 @@
             </section>
         </div>
     </main>
+
+    <!-- Overlay del carrito -->
+    <div id="carrito-overlay" class="carrito-overlay" onclick="toggleCarrito()"></div>
+
+    <!-- Panel lateral del carrito -->
+    <aside id="carrito-panel" class="carrito-panel">
+        <div class="carrito-header">
+            <span class="carrito-titulo">🛒 Carrito de Ventas</span>
+            <button class="btn-cerrar-carrito" onclick="toggleCarrito()">✕</button>
+        </div>
+
+        <div id="carrito-items" class="carrito-items">
+            <!-- Items renderizados por CarritoUI -->
+        </div>
+
+        <div class="carrito-footer">
+            <div class="carrito-resumen">
+                <span class="carrito-resumen-label">Total:</span>
+                <span id="carrito-total" class="carrito-total-valor">S/ 0.00</span>
+            </div>
+            <div class="carrito-acciones">
+                <button id="btn-vaciar-carrito" class="btn btn-danger">Vaciar</button>
+                <button id="btn-confirmar-venta" class="btn btn-primary">Confirmar Venta</button>
+            </div>
+        </div>
+    </aside>
 
     <footer class="footer">
         <div class="footer-content">

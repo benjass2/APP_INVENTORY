@@ -44,8 +44,18 @@
     border-bottom: none;
 }
 
-.text-center {
+.products-table th:last-child,
+.products-table td:last-child {
+    width: 140px; /* Ancho fijo para la columna de acciones */
     text-align: center;
+    white-space: nowrap;
+}
+
+.products-table td:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* Action buttons in table */

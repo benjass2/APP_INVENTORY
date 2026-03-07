@@ -12,6 +12,16 @@ export class ProductoModel extends EventEmitter {
         // Por ahora, vacío
     }
 
+    agregarProducto(producto) {
+        this.productos.push(producto);
+        this.emit('productosActualizados', this.productos);
+    }
+
+    eliminarProducto(id) {
+        this.productos = this.productos.filter(p => p.Id != id);
+        this.emit('productosActualizados', this.productos);
+    }
+
     setProductos(productos) {
         this.productos = productos;
         this.emit('productosActualizados', this.productos);
@@ -30,13 +40,5 @@ export class ProductoModel extends EventEmitter {
         this.emit('filtroActualizado', this.getProductosFiltrados());
     }
 
-    agregarProducto(producto) {
-        this.productos.push(producto);
-        this.emit('productosActualizados', this.productos);
-    }
 
-    eliminarProducto(id) {
-        this.productos = this.productos.filter(p => p.Id != id);
-        this.emit('productosActualizados', this.productos);
-    }
 }

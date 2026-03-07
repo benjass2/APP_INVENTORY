@@ -101,7 +101,7 @@ body {
 
 .content-grid {
     display: grid;
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: 320px 1fr; /* Reducido de 350px a 320px para mejor proporción */
     gap: 2rem;
 }
 
@@ -126,6 +126,18 @@ body {
     .content-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        /* Cambiar el orden: sidebar primero, luego contenido principal */
+        grid-template-areas:
+            "sidebar"
+            "main";
+    }
+
+    .sidebar {
+        grid-area: sidebar;
+    }
+
+    .main-content {
+        grid-area: main;
     }
 
     .header-content {

@@ -3,8 +3,8 @@ const Producto = require('../Models/Producto');
 const obtenerTodos = () => Producto.get();
 
 const registrar = async(data)=>{
-    //Validar datos
-    if(!data.nombre || !data.precio || !data.cantidad){
+    //Validar datos - corregir nombres de campos para coincidir con frontend
+    if(!data.Nombre || !data.Precio || !data.Stock){
         throw new Error("Todos los campos son obligatorios");
     }
     return Producto.create(data);
