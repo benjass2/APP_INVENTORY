@@ -98,5 +98,7 @@ export class CarritoController {
             const data = await res.json();
             UI.notificar('Error: ' + (data.error?.mensaje || 'No se pudo registrar la venta'), 'error');
         }
+        
+        
     }
 }

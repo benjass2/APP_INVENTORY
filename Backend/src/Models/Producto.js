@@ -1,12 +1,11 @@
-const { ConnectionError } = require('mssql');
-const {conectarDB,sql} = require('../database');
+const { conectarDB, sql } = require('../../database/database');
 
 const Producto ={
     //Obtener todos los productos
     async get(){
         const pool = await conectarDB();
         const result = await pool.request().query('SELECT * FROM Productos');
-        return result.recordset;
+        return result.recordset; 
     },
 
     // Registrar un nuevo producto

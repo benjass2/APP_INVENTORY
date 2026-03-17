@@ -1,4 +1,4 @@
-const { conectarDB, sql } = require('../database');
+const { conectarDB, sql } = require('../../database/database');
 
 const Venta = {
     async crear(items) {

@@ -1,4 +1,4 @@
-const ventaService = require('../services/ventas.service');
+const ventasService = require('../services/ventas.service');
 
 const registrarVenta = async(req,res,next)=>{
     try {
