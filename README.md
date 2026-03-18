@@ -36,6 +36,7 @@ El frontend implementa el patrón MVC (Modelo-Vista-Controlador) usando módulos
 - **views/**: Renderizado de componentes de interfaz
 - **controllers/**: Coordinación entre modelos y vistas, manejo de eventos
 - **utils/**: Utilidades como sistema de eventos
+- **css/**: Estilos organizados con arquitectura 7‑1 (abstracts, base, layout, components, pages, themes, vendors). Punto de entrada: `css/main.css`
 
 ## 🚀 Instalación y Ejecución
 
@@ -133,9 +134,14 @@ Para una configuración segura, se recomienda usar variables de entorno para:
 
 ### Frontend
 - **index.html**: Estructura HTML principal
-- **css/base.css**: Variables CSS y estilos globales
-- **css/componentes.css**: Estilos de componentes específicos
-- **css/tablas.css**: Estilos para tablas de datos
+- **css/**: Estructura modular 7‑1 (entrada: `css/base.css`)
+  - **css/abstracts/**: Variables, animaciones y mixins
+  - **css/base/**: Reset + tipografía + reglas base
+  - **css/layout/**: Header, grid principal y footer
+  - **css/components/**: Botones, cards, tablas, carrito, sidebar, formularios
+  - **css/pages/**: Estilos específicos por vista (p.ej. inventario)
+  - **css/themes/**: Temas / variables de colores alternativos
+  - **css/vendors/**: Estilos externos / librerías de terceros
 - **js/main.js**: Inicialización de la aplicación MVC
 - **js/models/ProductoModel.js**: Gestión del estado de productos
 - **js/services/ProductoService.js**: Llamadas a la API

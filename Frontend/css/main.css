@@ -1,0 +1,24 @@
+﻿
+@import "./abstracts/variables.css";
+@import "./abstracts/animaciones.css";
+
+@import "./base/base.css";
+
+
+@import "./layout/header.css";
+@import "./layout/grid.css";
+@import "./layout/footer.css";
+
+
+@import "./components/buttons.css";
+@import "./components/cards.css";
+@import "./components/forms.css";
+@import "./components/tables.css";
+@import "./components/carrito.css";
+@import "./components/sidebar.css";
+
+@import "./pages/inventario.css";
+
+
+@import "./themes/default.css";
+
