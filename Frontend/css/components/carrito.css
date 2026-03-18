@@ -199,3 +199,15 @@
 .carrito-vacio p {
   font-size: 1rem;
 }
+
+.carrito-resumen-label{
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-size: 30px;
+}
+
+.carrito-total-valor{
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--accent);
+}

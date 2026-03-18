@@ -83,6 +83,9 @@ export class CarritoController {
 
     async confirmarVenta() {
         const items = this.carritoModel.getItems();
+        const btn = document.getElementById('btn-confirmar-venta')
+        btn.disabled = true;
+        btn.textContent = 'Procesando....';
         if (items.length === 0) {
             UI.notificar('El carrito está vacío', 'error');
             return;
@@ -90,7 +93,7 @@ export class CarritoController {
 
         const res = await VentaService.registrarVenta(items);
         if (res.ok) {
-            UI.notificar('✅ Venta registrada con éxito');
+            UI.notificar(' Venta registrada con éxito');
             this.carritoModel.vaciar();
             // Recargar productos para actualizar stock
             this.productoModel.emit('recargar');
@@ -99,6 +102,8 @@ export class CarritoController {
             UI.notificar('Error: ' + (data.error?.mensaje || 'No se pudo registrar la venta'), 'error');
         }
         
+        btn.disabled = false;
+        btn.textContent ='Confirmar Venta';
         
     }
 }

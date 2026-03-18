@@ -3,4 +3,23 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  /* Keep the sidebar visible as the user scrolls */
+  position: sticky;
+  top: 6rem;
+  align-self: start;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    position: static;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+  }
 }

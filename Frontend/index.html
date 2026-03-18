@@ -1,107 +1,56 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestion Bodega</title>
-    <link rel="icon" type="image/png" href="/img/clank.png" />
-    <link rel="stylesheet" href="./css/main.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión Bodega Pro</title>
+  <link rel="icon" type="image/png" href="/img/clank.png" />
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
 
-  <body>
-    <header class="header">
-      <div class="header-content">
-        <h1 class="header-title">Gestion de bodega - INVENTORY</h1>
-        <nav class="main-nav">
-          <button class="nav-btn" onclick="router('registrar')">
-            Nuevo Producto
-          </button>
-          <button class="nav-btn nav-btn-carrito" onclick="toggleCarrito()">
-            🛒 Carrito
-            <span id="carrito-badge">0</span>
-          </button>
-        </nav>
+<body>
+
+  <div class="app-layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <h2>📦 Bodega Pro</h2>
       </div>
-    </header>
+      
+      <nav class="sidebar-nav" id="nav-principal">
+        <button class="nav-btn active" data-section="inventario">📊 Inventario</button>
+        <button class="nav-btn" data-section="registrar">➕ Nuevo Producto</button>
+        <button class="nav-btn nav-btn-carrito" onclick="toggleCarrito()">
+          🛒 Punto de Venta <span id="carrito-badge">0</span>
+        </button>
+        <button class="nav-btn" data-section="configuracion">⚙️ Configuración</button>
+      </nav>
+    </aside>
 
-    <main class="main-container">
-      <div class="content-grid">
-        <!-- Panel lateral -->
-        <aside class="sidebar">
-          <section class="search-section card">
-            <h3>Buscar Producto</h3>
-            <div class="search-input">
-              <input
-                type="text"
-                id="buscar-producto"
-                placeholder="Escribe el nombre del producto"
-                class="search-field"
-              />
-            </div>
-          </section>
+    <div class="main-wrapper">
 
-          <section class="form-section card">
-            <h3>Registrar Nuevo Producto</h3>
-            <form id="form-producto" class="product-form">
-              <div class="form-group">
-                <label for="nombre">Nombre del Producto</label>
-                <input
-                  type="text"
-                  id="nombre"
-                  placeholder="Ej. Arroz Costeño"
-                  required
-                />
-              </div>
+      <header class="top-header">
+        <span class="header-title">Sistema de Gestión de Inventario</span>
+        <span class="user-profile">👤 Benjamín (Admin)</span>
+      </header>
 
-              <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea
-                  id="descripcion"
-                  placeholder="Descripción del producto"
-                  rows="3"
-                  required
-                ></textarea>
-              </div>
+      <main class="main-container">
 
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="precio">Precio (S/)</label>
-                  <input
-                    type="number"
-                    id="precio"
-                    step="0.01"
-                    placeholder="0.00"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="stock">Stock Inicial</label>
-                  <input
-                    type="number"
-                    id="stock"
-                    placeholder="Cantidad"
-                    required
-                  />
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-full">
-                Guardar Producto
-              </button>
-            </form>
-          </section>
-        </aside>
-
-        <!-- Contenido principal -->
-        <section class="main-content">
+        <section id="section-inventario" class="view-section">
           <div class="products-section card">
+            
             <div class="section-header">
               <h2>Productos en Almacén</h2>
-              <div class="section-actions">
-                <span class="product-count" id="product-count"
-                  >0 productos</span
-                >
-              </div>
+              <span class="product-count" id="product-count">0 productos</span>
+            </div>
+
+            <div class="search-section" style="margin-bottom: 20px;">
+              <input 
+                type="text" 
+                id="buscar-producto" 
+                placeholder="Buscar producto por nombre o descripción..." 
+                class="search-field" 
+              />
             </div>
 
             <div class="table-container">
@@ -116,55 +65,87 @@
                     <th class="text-center">Acciones</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                  </tbody>
               </table>
             </div>
+
           </div>
         </section>
+
+        <section id="section-registrar" class="view-section" style="display: none;">
+          <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <h2 style="margin-bottom: 20px; border-bottom: 2px solid var(--accent); padding-bottom: 10px;">Registrar Nuevo Producto</h2>
+            
+            <form id="form-producto" class="product-form">
+              <div class="form-group">
+                <label for="nombre">Nombre del Producto</label>
+                <input type="text" id="nombre" placeholder="Ej. Arroz Costeño" required />
+              </div>
+
+              <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" placeholder="Descripción del producto" required></textarea>
+              </div>
+
+              <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label for="precio">Precio (S/)</label>
+                  <input type="number" id="precio" step="0.01" placeholder="0.00" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="stock">Stock Inicial</label>
+                  <input type="number" id="stock" placeholder="Cantidad" required />
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">
+                Guardar Producto
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section id="section-configuracion" class="view-section" style="display: none;">
+          <div class="card">
+            <h2>⚙️ Configuraciones del Sistema</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">
+              Aquí irán ajustes generales como cambiar la contraseña, configurar el IGV, o gestionar usuarios.
+            </p>
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="footer" style="padding: 1rem 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border);">
+        <p>&copy; 2026 Gestión de Inventario - Bodega Familiar.</p>
+      </footer>
+
+    </div> </div> <div id="carrito-overlay" class="carrito-overlay" onclick="toggleCarrito()"></div>
+  <aside id="carrito-panel" class="carrito-panel">
+    
+    <div class="carrito-header">
+      <span class="carrito-titulo">🛒 Punto de Venta</span>
+      <button class="btn-cerrar-carrito" onclick="toggleCarrito()">✕</button>
+    </div>
+
+    <div id="carrito-items" class="carrito-items">
       </div>
-    </main>
 
-    <!-- Overlay del carrito -->
-    <div
-      id="carrito-overlay"
-      class="carrito-overlay"
-      onclick="toggleCarrito()"
-    ></div>
-
-    <!-- Panel lateral del carrito -->
-    <aside id="carrito-panel" class="carrito-panel">
-      <div class="carrito-header">
-        <span class="carrito-titulo">🛒 Carrito de Ventas</span>
-        <button class="btn-cerrar-carrito" onclick="toggleCarrito()">✕</button>
+    <div class="carrito-footer">
+      <div class="carrito-resumen">
+        <span>Total a cobrar:</span>
+        <span id="carrito-total">S/ 0.00</span>
       </div>
-
-      <div id="carrito-items" class="carrito-items">
-        <!-- Items renderizados por CarritoUI -->
+      <div class="carrito-acciones" style="display: flex; gap: 10px; margin-top: 15px;">
+        <button id="btn-vaciar-carrito" class="btn btn-danger" style="flex: 1;">Vaciar</button>
+        <button id="btn-confirmar-venta" class="btn btn-primary" style="flex: 2;">Confirmar Venta</button>
       </div>
+    </div>
+  </aside>
 
-      <div class="carrito-footer">
-        <div class="carrito-resumen">
-          <span class="carrito-resumen-label">Total:</span>
-          <span id="carrito-total" class="carrito-total-valor">S/ 0.00</span>
-        </div>
-        <div class="carrito-acciones">
-          <button id="btn-vaciar-carrito" class="btn btn-danger">Vaciar</button>
-          <button id="btn-confirmar-venta" class="btn btn-primary">
-            Confirmar Venta
-          </button>
-        </div>
-      </div>
-    </aside>
+  <script type="module" src="/js/main.js"></script>
 
-    <footer class="footer">
-      <div class="footer-content">
-        <p>
-          &copy; 2026 Gestión de Inventario Benjamin - Bodega. Todos los
-          derechos reservados.
-        </p>
-      </div>
-    </footer>
-
-    <script type="module" src="/js/main.js"></script>
-  </body>
+</body>
 </html>

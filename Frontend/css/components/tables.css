@@ -52,12 +52,7 @@
   white-space: nowrap;
 }
 
-.products-table td:last-child {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
+
 
 /* Action buttons in table */
 .btn-cart {

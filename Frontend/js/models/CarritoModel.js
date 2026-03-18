@@ -4,6 +4,8 @@ export class CarritoModel extends EventEmitter {
     constructor() {
         super();
         this.items = [];
+        const guardar = sessionStorage.getItem('carrito');
+        this.items = guardar ? JSON.parse(guardar) : [];
     }
 
     agregarItem(producto) {
@@ -22,12 +24,14 @@ export class CarritoModel extends EventEmitter {
             }
             this.items.push({ producto, cantidad: 1 });
         }
+        this.guardarEnSession();    
         this.emit('carritoActualizado', this.items);
 
     }
 
     quitarItem(productoId) {
         this.items = this.items.filter(i => i.producto.Id !== productoId);
+        this.guardarEnSession();
         this.emit('carritoActualizado', this.items);
     }
 
@@ -45,7 +49,13 @@ export class CarritoModel extends EventEmitter {
             return;
         }
         item.cantidad = nuevaCantidad;
+        this.guardarEnSession();
         this.emit('carritoActualizado', this.items);
+    }
+    
+    //Guardar el carrito en sessionStorage para mantenerlo entre recargas de página
+    guardarEnSession(){
+        sessionStorage.setItem('carrito', JSON.stringify(this.items));
     }
 
     vaciar() {

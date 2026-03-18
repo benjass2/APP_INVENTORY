@@ -1,9 +1,4 @@
 /* Component: Forms + Search */
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
 
 .search-section h3,
 .form-section h3 {
