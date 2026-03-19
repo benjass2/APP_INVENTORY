@@ -4,90 +4,21 @@
 .app-layout {
     display: flex;
     min-height: 100vh;
-    background-color: var(--bg-primary); 
+    background-color: var(--bg-primary);
 }
 
-/* --- 2. BARRA LATERAL (SIDEBAR) --- */
-.sidebar {
-    width: 260px;
-    background-color: var(--bg-secondary);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    /* sticky hace que el sidebar se quede fijo aunque hagas scroll hacia abajo */
-    position: sticky; 
-    top: 0;
-    height: 100vh;
-}
-
-.sidebar-brand {
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--border);
-    text-align: center;
-}
-
-.sidebar-brand h2 {
-    margin: 0;
-    font-size: 1.4rem;
-    color: var(--primary);
-}
-
-/* --- 3. NAVEGACIÓN DEL SIDEBAR --- */
-.sidebar-nav {
-    padding: 1.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.sidebar-nav .nav-btn {
-    width: 100%;
-    text-align: left;
-    padding: 0.8rem 1rem;
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    border-radius: var(--radius-sm);
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.sidebar-nav .nav-btn:hover {
-    background-color: var(--bg-tertiary);
-    color: var(--text-primary);
-}
-
-.sidebar-nav .nav-btn.active {
-    background-color: var(--primary);
-    color: white;
-}
-
-/* Estilo para el numerito rojo del carrito en el menú */
-#carrito-badge {
-    background-color: var(--danger);
-    color: white;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: bold;
-}
-
-/* --- 4. ÁREA DE CONTENIDO DERECHO --- */
+/* --- 2. ÁREA DE CONTENIDO DERECHO --- */
 .main-wrapper {
-    flex: 1; /* Toma todo el ancho restante a la derecha */
+    flex: 1;
     display: flex;
     flex-direction: column;
-    min-width: 0; /* Evita que las tablas grandes rompan el diseño flex */
+    min-width: 0; /* evita que tablas anchas rompan el flex */
+    overflow: hidden;
 }
 
-/* --- 5. CABECERA SUPERIOR (TOP HEADER) --- */
+/* --- 3. CABECERA SUPERIOR --- */
 .top-header {
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-sidebar);
     border-bottom: 1px solid var(--border);
     padding: 1rem 2rem;
     display: flex;
@@ -95,12 +26,13 @@
     align-items: center;
     position: sticky;
     top: 0;
-    z-index: 10; /* Se asegura de quedar por encima del contenido al hacer scroll */
+    z-index: 10;
+    flex-shrink: 0;
 }
 
 .top-header .header-title {
     font-weight: 600;
-    color: var(--text-primary);
+    color: white;
     font-size: 1.1rem;
 }
 
@@ -112,24 +44,15 @@
     border-radius: 20px;
 }
 
-/* --- 6. CONTENEDOR DE LAS VISTAS (MAIN) --- */
+/* --- 4. CONTENEDOR DE LAS VISTAS --- */
 .main-container {
     padding: 2rem;
     flex: 1;
+    overflow-y: auto;
 }
 
-/* Animación suave para cuando cambias de "Inventario" a "Nuevo Producto" */
+/* Animación suave entre vistas */
 .view-section {
     animation: fadeIn 0.3s ease-in-out;
 }
 
-@keyframes fadeIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(10px); 
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
-}

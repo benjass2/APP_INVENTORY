@@ -4,8 +4,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin: 1%;
-  padding: 20px;
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: var(--radius);
   font-size: 0.875rem;
@@ -19,6 +18,7 @@
 .btn-primary {
   background: var(--accent);
   color: white;
+  flex:2;
 }
 
 .btn-primary:hover {
@@ -30,6 +30,7 @@
 .btn-danger {
   background: var(--danger);
   color: white;
+  flex:1;
 }
 
 .btn-danger:hover {
@@ -39,16 +40,22 @@
 }
 
 .btn-full {
-   width:100px;
+  width: 100%;
 }
 
-.btn-save-product{
-  background-color:rgb(52, 58, 49);
-  padding: 20px;
-  color:rgb(255, 255, 255);
-  border :none;
+.btn-save-product {
+  background-color: rgb(52, 58, 49);
+  padding: 0.75rem 1.5rem;
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: var(--transition);
 }
-.btn-save-product:hover{
+
+.btn-save-product:hover {
   background: var(--accent-dark);
   transform: translateY(-1px);
   box-shadow: var(--shadow);

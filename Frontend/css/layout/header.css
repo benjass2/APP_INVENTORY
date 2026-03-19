@@ -52,6 +52,12 @@
   border-color: var(--accent);
 }
 
+.title-app {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
 @media (max-width: 1024px) {
   .header-content {
     flex-direction: column;
