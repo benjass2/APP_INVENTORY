@@ -34,10 +34,25 @@ const eliminarProducto = async (req, res, next) => {
     }
 }
 
+const actualizarProducto = async(req,res,next)=>{
+    const {id} = req.params;
+    try{
+        const rowsAffected = await productosService.actualizar(id,req.body);
+        if(rowsAffected===0){
+            return res.status(404).json({ error: { mensaje: "Producto no encontrado" } });
+        }
+        res.json({mensaje:"Producto actualizado con exito"});
+
+    }catch(error){
+        next(error);
+    }
+}
+
 module.exports ={
     obtenerProductos,
     registrarProducto,
-    eliminarProducto
+    eliminarProducto,
+    actualizarProducto
 }
 
 

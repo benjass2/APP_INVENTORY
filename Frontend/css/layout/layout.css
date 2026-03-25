@@ -38,10 +38,10 @@
 
 .top-header .user-profile {
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 14px;
     background-color: var(--bg-tertiary);
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: 20px;    
 }
 
 /* --- 4. CONTENEDOR DE LAS VISTAS --- */
@@ -54,5 +54,9 @@
 /* Animación suave entre vistas */
 .view-section {
     animation: fadeIn 0.3s ease-in-out;
+}
+
+.hidden-section{
+    display:none;
 }
 

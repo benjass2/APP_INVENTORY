@@ -18,4 +18,13 @@ export class ProductoService {
         });
         return res;
     }
+
+    static async actualizar(id,data){
+        const res = await fetch(`/api/productos/${id}`,{
+            method:'PUT',
+            headers:{'Content-Type' : 'application/json'},
+            body:JSON.stringify(data)
+        });
+        return res;
+    }
 }

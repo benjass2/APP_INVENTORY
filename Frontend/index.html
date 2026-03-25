@@ -1,151 +1,272 @@
 <!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestión Bodega</title>
-  <link rel="icon" type="image/png" href="/img/clank.png" />
-  <link rel="stylesheet" href="./css/main.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión Bodega</title>
+    <link rel="icon" type="image/png" href="/img/clank.png" />
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
 
-<body>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <h2>INVENTORY</h2>
+        </div>
 
-  <div class="app-layout">
+        <nav class="sidebar-nav" id="nav-principal">
+          <button class="nav-btn active" data-section="inventario">
+            Inventario
+          </button>
+          <button class="nav-btn" data-section="registrar">
+            Nuevo Producto
+          </button>
+          <button class="nav-btn nav-btn-carrito" onclick="toggleCarrito()">
+            Punto de Venta <span id="carrito-badge">0</span>
+          </button>
+          <button class="nav-btn" data-section="configuracion">
+            Configuración
+          </button>
+        </nav>
+      </aside>
 
-    <aside class="sidebar">
-      <div class="sidebar-brand">
-        <h2> INVENTORY</h2>
+      <div class="main-wrapper">
+        <header class="top-header">
+          <span class="header-title">Sistema de Gestión de Inventario</span>
+          <span class="user-profile">👤 Benjamín (Admin)</span>
+        </header>
+
+        <main class="main-container">
+          <!-- INVENTARIO -->
+          <section id="section-inventario" class="view-section">
+            <div class="products-section card">
+              <div class="section-header">
+                <h2>Productos en Almacén</h2>
+                <span class="product-count" id="product-count"
+                  >0 productos</span
+                >
+              </div>
+
+              <div class="search-section" style="margin-bottom: 20px">
+                <input
+                  type="text"
+                  id="buscar-producto"
+                  placeholder="Buscar producto por nombre o descripción..."
+                  class="search-field"
+                />
+              </div>
+
+              <div class="table-container">
+                <table id="tabla-productos" class="products-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Producto</th>
+                      <th>Descripción</th>
+                      <th>Precio</th>
+                      <th>Stock</th>
+                      <th class="text-center">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- REGISTRAR -->
+          <section id="section-registrar" class="view-section hidden-section">
+            <div class="card form-card" >
+              <h2 class ="form-title-register">Registrar Nuevo Producto</h2>
+
+              <form id="form-producto" class="product-form">
+                <div class="form-group">
+                  <label for="nombre">Nombre del Producto</label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    placeholder="Ej. Arroz Costeño"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="descripcion">Descripción</label>
+                  <textarea
+                    id="descripcion"
+                    placeholder="Descripción del producto"
+                    required
+                  ></textarea>
+                </div>
+
+                <div
+                  class="form-row"
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem;
+                  "
+                >
+                  <div class="form-group">
+                    <label for="precio">Precio (S/)</label>
+                    <input
+                      type="number"
+                      id="precio"
+                      step="0.01"
+                      placeholder="0.00"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="stock">Stock Inicial</label>
+                    <input
+                      type="number"
+                      id="stock"
+                      placeholder="Cantidad"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-full"
+                  style="margin-top: 10px"
+                >
+                  Guardar Producto
+                </button>
+              </form>
+            </div>
+          </section>
+
+          <!-- CONFIGURACIÓN -->
+          <section
+            id="section-configuracion"
+            class="view-section"
+            style="display: none"
+          >
+            <div class="card">
+              <h2>⚙️ Configuraciones del Sistema</h2>
+              <p style="color: var(--text-muted); margin-top: 10px">
+                Aquí irán ajustes generales como cambiar la contraseña,
+                configurar el IGV o gestionar usuarios.
+              </p>
+            </div>
+          </section>
+        </main>
+
+        <footer
+          class="footer"
+          style="
+            padding: 1rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+          "
+        >
+          <p>&copy; 2026 Gestión de Inventario - Bodega Familiar.</p>
+        </footer>
       </div>
-      
-      <nav class="sidebar-nav" id="nav-principal">
-        <button class="nav-btn active" data-section="inventario">📊 Inventario</button>
-        <button class="nav-btn" data-section="registrar">➕ Nuevo Producto</button>
-        <button class="nav-btn nav-btn-carrito" onclick="toggleCarrito()">
-          🛒 Punto de Venta <span id="carrito-badge">0</span>
-        </button>
-        <button class="nav-btn" data-section="configuracion">⚙️ Configuración</button>
-      </nav>
+    </div>
+
+    <!-- CARRITO -->
+    <div
+      id="carrito-overlay"
+      class="carrito-overlay"
+      onclick="toggleCarrito()"
+    ></div>
+
+    <aside id="carrito-panel" class="carrito-panel">
+      <div class="carrito-header">
+        <span class="carrito-titulo">🛒 Punto de Venta</span>
+        <button class="btn-cerrar-carrito" onclick="toggleCarrito()">✕</button>
+      </div>
+
+      <div id="carrito-items" class="carrito-items"></div>
+
+      <div class="carrito-footer">
+        <div class="carrito-resumen">
+          <span>Total a cobrar:</span>
+          <span id="carrito-total">S/ 0.00</span>
+        </div>
+
+        <div
+          class="carrito-acciones"
+          style="display: flex; gap: 10px; margin-top: 15px"
+        >
+          <button id="btn-vaciar-carrito" class="btn btn-danger">Vaciar</button>
+          <button id="btn-confirmar-venta" class="btn btn-primary">
+            Confirmar Venta
+          </button>
+        </div>
+      </div>
     </aside>
 
-    <div class="main-wrapper">
-
-      <header class="top-header">
-        <span class="header-title">Sistema de Gestión de Inventario</span>
-        <span class="user-profile">👤 Benjamín (Admin)</span>
-      </header>
-
-      <main class="main-container">
-
-        <section id="section-inventario" class="view-section">
-          <div class="products-section card">
-            
-            <div class="section-header">
-              <h2>Productos en Almacén</h2>
-              <span class="product-count" id="product-count">0 productos</span>
-            </div>
-
-            <div class="search-section" style="margin-bottom: 20px;">
-              <input 
-                type="text" 
-                id="buscar-producto" 
-                placeholder="Buscar producto por nombre o descripción..." 
-                class="search-field" 
-              />
-            </div>
-
-            <div class="table-container">
-              <table id="tabla-productos" class="products-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Producto</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th class="text-center">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  </tbody>
-              </table>
-            </div>
-
+    <div
+      id="modal-editar"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 300;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        style="
+          background: white;
+          border-radius: 12px;
+          padding: 2rem;
+          width: 90%;
+          max-width: 480px;
+        "
+      >
+        <h3 style="margin-bottom: 1.5rem">Editar Producto</h3>
+        <form id="form-editar" class="product-form">
+          <input type="hidden" id="edit-id" />
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" id="edit-nombre" required />
           </div>
-        </section>
-
-        <section id="section-registrar" class="view-section" style="display: none;">
-          <div class="card" style="max-width: 600px; margin: 0 auto;">
-            <h2 style="margin-bottom: 20px; border-bottom: 2px solid var(--accent); padding-bottom: 10px;">Registrar Nuevo Producto</h2>
-            
-            <form id="form-producto" class="product-form">
-              <div class="form-group">
-                <label for="nombre">Nombre del Producto</label>
-                <input type="text" id="nombre" placeholder="Ej. Arroz Costeño" required />
-              </div>
-
-              <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea id="descripcion" placeholder="Descripción del producto" required></textarea>
-              </div>
-
-              <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <div class="form-group">
-                  <label for="precio">Precio (S/)</label>
-                  <input type="number" id="precio" step="0.01" placeholder="0.00" required />
-                </div>
-
-                <div class="form-group">
-                  <label for="stock">Stock Inicial</label>
-                  <input type="number" id="stock" placeholder="Cantidad" required />
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">
-                Guardar Producto
-              </button>
-            </form>
+          <div class="form-group">
+            <label>Descripción</label>
+            <textarea id="edit-descripcion"></textarea>
           </div>
-        </section>
-
-        <section id="section-configuracion" class="view-section" style="display: none;">
-          <div class="card">
-            <h2>⚙️ Configuraciones del Sistema</h2>
-            <p style="color: var(--text-muted); margin-top: 10px;">
-              Aquí irán ajustes generales como cambiar la contraseña, configurar el IGV, o gestionar usuarios.
-            </p>
+          <div
+            class="form-row"
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem"
+          >
+            <div class="form-group">
+              <label>Precio (S/)</label>
+              <input type="number" id="edit-precio" step="0.01" required />
+            </div>
+            <div class="form-group">
+              <label>Stock</label>
+              <input type="number" id="edit-stock" required />
+            </div>
           </div>
-        </section>
-
-      </main>
-
-      <footer class="footer" style="padding: 1rem 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border);">
-        <p>&copy; 2026 Gestión de Inventario - Bodega Familiar.</p>
-      </footer>
-
-    </div> </div> <div id="carrito-overlay" class="carrito-overlay" onclick="toggleCarrito()"></div>
-  <aside id="carrito-panel" class="carrito-panel">
-    
-    <div class="carrito-header">
-      <span class="carrito-titulo">🛒 Punto de Venta</span>
-      <button class="btn-cerrar-carrito" onclick="toggleCarrito()">✕</button>
-    </div>
-
-    <div id="carrito-items" class="carrito-items">
-      </div>
-
-    <div class="carrito-footer">
-      <div class="carrito-resumen">
-        <span>Total a cobrar:</span>
-        <span id="carrito-total">S/ 0.00</span>
-      </div>
-      <div class="carrito-acciones" style="display: flex; gap: 10px; margin-top: 15px;">
-        <button id="btn-vaciar-carrito" class="btn btn-danger">Vaciar</button>
-        <button id="btn-confirmar-venta" class="btn btn-primary">Confirmar Venta</button>
+          <div style="display: flex; gap: 0.75rem; margin-top: 1rem">
+            <button
+              type="button"
+              id="btn-cancelar-editar"
+              class="btn btn-danger"
+              style="flex: 1"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" style="flex: 2">
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-  </aside>
 
-  <script type="module" src="/js/main.js"></script>
-
-</body>
+    <script type="module" src="/js/main.js"></script>
+  </body>
 </html>

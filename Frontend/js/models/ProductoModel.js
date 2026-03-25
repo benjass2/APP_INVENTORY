@@ -27,6 +27,10 @@ export class ProductoModel extends EventEmitter {
         this.emit('productosActualizados', this.productos);
     }
 
+    getProductos() {
+        return this.productos;
+    }
+
     getProductosFiltrados() {
         if (!this.filtro) return this.productos;
         return this.productos.filter(p =>

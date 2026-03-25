@@ -24,6 +24,7 @@ export class UI {
                 <td class="text-center">
                     <button class="btn-cart" data-id="${p.Id}" title="Agregar al carrito">🛒</button>
                     <button class="btn-delete" data-id="${p.Id}" title="Eliminar producto">🗑️</button>
+                    <button class="btn-edit" data-id="${p.Id}" title="Editar producto">✏️</button>
                 </td>
             </tr>
         `).join('');

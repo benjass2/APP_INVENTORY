@@ -52,7 +52,7 @@
 }
 
 .sidebar-nav .nav-btn:hover {
-  background-color:var(--bg-sidebar);
+  background-color:var(--text-secondary);
   color: var(--text-primary);
 }
 
